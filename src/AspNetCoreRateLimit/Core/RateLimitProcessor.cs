@@ -23,7 +23,7 @@ namespace AspNetCoreRateLimit
                 return true;
             }
 
-            if (_options.IpWhitelist != null && IpParser.ContainsIp(_options.IpWhitelist, requestIdentity.ClientIp))
+            if (_options.IpWhitelist != null && !string.IsNullOrEmpty(requestIdentity.ClientIp) && IpParser.ContainsIp(_options.IpWhitelist, requestIdentity.ClientIp))
             {
                 return true;
             }

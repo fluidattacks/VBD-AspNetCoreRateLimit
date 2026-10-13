@@ -31,7 +31,7 @@ namespace AspNetCoreRateLimit
 
             if (clientIdHeader != null)
             {
-                ClientResolvers.Add(new ClientHeaderResolveContributor(clientIdHeader));
+                ClientResolvers.Add(new ClientHeaderResolveContributor(clientIdHeader, GetTrustedProxies()));
             }
 
             // the contributors are resolved in the order of their collection index
