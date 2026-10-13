@@ -37,7 +37,7 @@ namespace AspNetCoreRateLimit
             // the contributors are resolved in the order of their collection index
             if (realIpHeader != null)
             {
-                IpResolvers.Add(new IpHeaderResolveContributor(realIpHeader));
+                IpResolvers.Add(new IpHeaderResolveContributor(realIpHeader, GetTrustedProxies()));
             }
 
             IpResolvers.Add(new IpConnectionResolveContributor());
@@ -51,6 +51,11 @@ namespace AspNetCoreRateLimit
         protected string GetRealIp()
         {
             return IpRateLimitOptions?.RealIpHeader ?? ClientRateLimitOptions?.RealIpHeader;
+        }
+
+        protected List<string> GetTrustedProxies()
+        {
+            return IpRateLimitOptions?.TrustedProxies ?? ClientRateLimitOptions?.TrustedProxies;
         }
     }
 }

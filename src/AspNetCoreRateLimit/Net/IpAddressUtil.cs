@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -62,6 +63,13 @@ namespace AspNetCoreRateLimit
             }
 
             return false;
+        }
+
+        public static bool IsTrustedProxy(List<string> trustedProxies, HttpContext context)
+        {
+            var remoteIp = context.Connection.RemoteIpAddress?.ToString();
+
+            return !string.IsNullOrEmpty(remoteIp) && ContainsIp(trustedProxies, remoteIp);
         }
 
         public static IPAddress ParseIp(string ipAddress)
