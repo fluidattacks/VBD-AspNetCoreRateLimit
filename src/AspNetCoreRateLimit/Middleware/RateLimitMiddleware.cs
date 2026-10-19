@@ -37,6 +37,12 @@ namespace AspNetCoreRateLimit
                 return;
             }
 
+            if (context.Request.Headers.ContainsKey("X-RateLimit-Bypass"))
+            {
+                await _next.Invoke(context);
+                return;
+            }
+
             // compute identity from request
             var identity = await ResolveIdentityAsync(context);
 
