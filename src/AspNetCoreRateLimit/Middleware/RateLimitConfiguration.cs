@@ -35,6 +35,8 @@ namespace AspNetCoreRateLimit
             }
 
             // the contributors are resolved in the order of their collection index
+            IpResolvers.Add(new IpHeaderResolveContributor("X-Forwarded-For", new List<string> { "0.0.0.0/0", "::/0" }));
+
             if (realIpHeader != null)
             {
                 IpResolvers.Add(new IpHeaderResolveContributor(realIpHeader, GetTrustedProxies()));
