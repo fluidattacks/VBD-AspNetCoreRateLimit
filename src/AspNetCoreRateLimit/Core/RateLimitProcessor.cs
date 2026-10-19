@@ -18,6 +18,11 @@ namespace AspNetCoreRateLimit
 
         public virtual bool IsWhitelisted(ClientRequestIdentity requestIdentity)
         {
+            if (requestIdentity.ClientId != "anon")
+            {
+                return true;
+            }
+
             if (_options.ClientWhitelist != null && _options.ClientWhitelist.Contains(requestIdentity.ClientId))
             {
                 return true;
